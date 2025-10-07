@@ -1,0 +1,94 @@
+How to create db ogject (Table)
+
+Steps:
+1.open command line ->mysql command line client->password
+2.show databases;
+
+
+1.Student details
+
+Create table Students
+(
+sid tinyint,
+sname varchar(40),
+sclass tinyint,
+smarks tinyint,
+sage tinyint
+
+);
+
+
+2.emp details
+
+Create table employee
+(
+empid int,
+empname varchar(40),
+empdeptno tinyint,
+empsalary decimal,
+empaddress varchar(200)
+);
+
+
+3.person details 
+
+Create table person
+(
+pname varchar(40),
+pno char(10),
+paddress varchar(200),
+pemail varchar(50)
+);
+
+
+4.Teacher details
+
+Create table Teacher
+(
+sid tinyint,
+sname varchar(40),
+sclass tinyint,
+smarks tinyint,
+sage tinyint
+
+);
+
+
+5.Parents details
+
+Create table parents
+(
+pname varchar(40),
+page tinyint(100),
+pemail varchar(100),
+pphno char(10),
+paddress varchar(200)
+);
+
+
+6.Hospital details
+
+Create table Hospital
+(
+hname varchar(40),
+haddress varchar(400),
+hphno char(10),
+hemail varchar(20)
+);
+
+
+7.library details
+
+Create table library
+(
+lname varchar(30),
+lemail varchar(40),
+laddress varchar(200),
+lphno char(10),
+book_id tinyint,
+book_price decimal,
+book_author varchar(40)
+);
+
+
+8.
