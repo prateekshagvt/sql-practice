@@ -1,0 +1,343 @@
+
+
+---------------
+************************************1.
+
+isnull ,is null()              (interview question)
+
+---------------------
+
+ *******************************2.
+ 
+ wt is diff btw 0 and null (interview que)
+ o-value exists
+ null-unknown
+ 
+------------------
+
+***********************************3.
+
+diff btw count and count *   (interview que)
+
+
+------------
+*************************************4.
+                                                                                                                                                                                      
+distinct keyword: unique 
+
+select distinct sal 
+select distinct sal from emp;
+select count(distinct sal) from emp;           (interview ques)
+---------------------
+
+_____________________________________________________________________________________________________________________________-
+
+ex:
+
+CREATE TABLE ps4 (
+    p_name VARCHAR(20),
+    p_fname VARCHAR(20),
+    p_lname VARCHAR(20),
+    p_age TINYINT,
+    dob DATE
+);
+
+INSERT INTO ps4 (p_name, p_fname, p_lname, p_age, dob) VALUES
+('pra', 'faf', 'dew', 12, '2010-05-12'),
+('eaf', 'dfds', 'erwer', 14, '2011-07-14'),
+('qad', 'pkm', 'dsds', 19, '2005-12-19');
+
+
+**********************************1.agrregate function 
+
+| Function   | Why Useful            |
+| ---------- | --------------------- |
+| `COUNT(*)` | Count rows in a table |
+| `SUM(col)` | Sum of numeric column |
+| `AVG(col)` | Average value         |
+| `MAX(col)` | Maximum value         |
+| `MIN(col)` | Minimum value         |
+
+
+ex:
+
+SELECT COUNT(*) FROM ps4;
+SELECT SUM(p_age)  FROM ps4;
+SELECT AVG(p_age)  FROM ps4;
+SELECT MAX(p_age) FROM ps4;
+SELECT MIN(p_age)  FROM ps4;
+
+
+
+
+****************************************2.String Functions
+
+| Function              | Example Use                         |
+| --------------------- | ----------------------------------- |
+| `CONCAT()`            | Combine first and last name         |
+| `UPPER()` / `LOWER()` | Standardize text                    |
+| `SUBSTRING()`         | Extract initials, first few letters |
+| `LENGTH()`            | Check string length                 |
+| `TRIM()`              | Remove extra spaces                 |
+
+
+ex:
+1.concat
+ select concat (p_name ,' ',p_lname)
+    -> from ps4;
+	
+2.upper
+select upper(p_name)
+    -> from ps4;
+
+4.length
+select length(p_name)
+    -> from ps4;
+
+5.trim
+select trim(p_name)
+    -> from ps4;
+	
+6.substring
+
+SUBSTRING(string, start_position, length)
+
+SELECT SUBSTRING(p_name, 1, 2) 
+FROM ps4;
+
+
+
+
+
+
+
+
+
+
+
+****************************3.date function
+
+SELECT YEAR(dob) AS BirthYear FROM ps4;
+SELECT MONTH(dob) AS BirthMonth FROM ps4;
+SELECT DAY(dob) AS BirthDay FROM ps4;
+SELECT EXTRACT(YEAR FROM dob) AS BirthYearExtract FROM ps4;
+SELECT NOW() AS CurrentDateTime, CURDATE() AS CurrentDate;
+
+
+ex:
+
+mysql> select * from ps4;
++--------+---------+---------+-------+------------+
+| p_name | p_fname | p_lname | p_age | dob        |
++--------+---------+---------+-------+------------+
+| pra    | faf     | dew     |    12 | 2010-05-12 |
+| eaf    | dfds    | erwer   |    14 | 2011-07-14 |
+| qad    | pkm     | dsds    |    19 | 2005-12-19 |
++--------+---------+---------+-------+------------+
+
+
+1.year
+
+select year(dob)
+    -> from ps4;
+	
+2.month
+select month(dob)
+    -> from ps4;
+	
+3.day
+select day(dob)
+    -> from ps4;
+	
+4.now
+
+select now()
+    -> from ps4;
+
+5.curdate
+select curdate()
+    -> from ps4;
+	
+NOW() → current date + time
+
+CURDATE() → current date only
+
+
+
+
+******************************4.Numeric / Math Functions
+
+SELECT ROUND(p_age/2,1) AS HalfAge FROM ps4;
+SELECT CEIL(p_age/2) AS CeilHalfAge FROM ps4;
+SELECT FLOOR(p_age/2) AS FloorHalfAge FROM ps4;
+SELECT ABS(p_age-15) AS AgeDifference FROM ps4;
+
+
+| Function      | Meaning                | Example                 |
+| ------------- | ---------------------- | ----------------------- |
+| `ROUND(x, n)` | Rounds to *n* decimals | `ROUND(12.56,1)` → 12.6 |
+| `CEIL(x)`     | Rounds up              | `CEIL(9.2)` → 10        |
+| `FLOOR(x)`    | Rounds down            | `FLOOR(9.8)` → 9        |
+| `ABS(x)`      | Converts to positive   | `ABS(-5)` → 5           |
+
+
+
+ex:
+1.round -Rounds numbers to given decimal places
+
+ select round(p_age,2)
+    -> from ps4;
+	
+
+2.ceil -Rounds up
+CEIL(9.2) → 10
+
+ select ceil(p_age)
+    -> from ps4;
+	
+	
+	
+3.floor -Rounds down (it removes (ignores) the decimal part completely)
+ FLOOR(9.8) → 9
+ 
+ select floor(p_age)
+    -> from ps4;
+ 
+ 
+4.abs-Gives the absolute (positive) value ,removes negative
+
+ select abs(p_age)
+    -> from ps4;
+	
+	
+	
+_________________________________________________________________
+
+| Function             | Used For                   | Example                   |
+| -------------------- | -------------------------- | ------------------------- |
+| `IS NULL`            | To check missing data      | `WHERE p_age IS NULL`     |
+| `IS NOT NULL`        | To find available data     | `WHERE p_age IS NOT NULL` |
+| `ISNULL(col, value)` | To replace NULL with value | `ISNULL(p_age, 0)`        |
+
+
+1.is  null
+
+SELECT * FROM ps4
+WHERE p_age IS NULL;
+
+
+2.is not null
+
+SELECT * FROM ps4
+WHERE p_age IS NULL;
+
+3.isnull()
+
+SELECT p_name, ISNULL(p_age, 0) 
+FROM ps4;
+
+
+
+_________________________________________________________________
+task:
+
+
+CREATE TABLE ps4 (
+    p_name VARCHAR(20),
+    p_fname VARCHAR(20),
+    p_lname VARCHAR(20),
+    p_age TINYINT,
+    dob DATE
+);
+
+INSERT INTO ps4 (p_name, p_fname, p_lname, p_age, dob) VALUES
+('pra', 'faf', 'dew', 12, '2010-05-12'),
+('eaf', 'dfds', 'erwer', 14, '2011-07-14'),
+('qad', 'pkm', 'dsds', 19, '2005-12-19');
+
+
+
+
+
+1. Aggregate Functions
+Function	Use
+
+
+
+COUNT(*)	Count rows
+SUM(col)	Sum
+AVG(col)	Average
+MAX(col)	Highest value
+MIN(col)	Lowest value
+
+
+SELECT COUNT(*) FROM ps4;
+SELECT SUM(p_age) FROM ps4;
+SELECT AVG(p_age) FROM ps4;
+SELECT MAX(p_age) FROM ps4;
+SELECT MIN(p_age) FROM ps4;
+
+
+
+2. String Functions
+Function	Use
+CONCAT()	Combine strings
+UPPER()/LOWER()	Convert case
+LENGTH()	String length
+TRIM()	Remove extra spaces
+SUBSTRING()	Extract characters
+
+
+SELECT CONCAT(p_name, ' ', p_lname) FROM ps4;
+SELECT UPPER(p_name) FROM ps4;
+SELECT LENGTH(p_name) FROM ps4;
+SELECT TRIM(p_name) FROM ps4;
+SELECT SUBSTRING(p_name, 1, 2) FROM ps4;
+
+
+
+
+3. Date Functions
+
+Examples:
+
+SELECT YEAR(dob) FROM ps4;
+SELECT MONTH(dob) FROM ps4;
+SELECT DAY(dob) FROM ps4;
+SELECT NOW();       -- current date + time
+SELECT CURDATE();   -- current date only
+
+
+4. Numeric / Math Functions
+Function	Use
+ROUND()	Round decimals
+CEIL()	Round up
+FLOOR()	Round down
+ABS()	Positive value
+
+
+SELECT ROUND(p_age/2,1) FROM ps4;
+SELECT CEIL(p_age/2) FROM ps4;
+SELECT FLOOR(p_age/2) FROM ps4;
+SELECT ABS(p_age-15) FROM ps4;
+
+
+
+
+NULL Checking Functions
+Function	Use
+IS NULL	Check NULL
+IS NOT NULL	Check not NULL
+ISNULL() / IFNULL()	Replace NULL
+
+
+SELECT * FROM ps4 WHERE p_age IS NULL;
+
+SELECT * FROM ps4 WHERE p_age IS NOT NULL;
+
+SELECT p_name, ISNULL(p_age, 0) FROM ps4;
+
+
+
+
+

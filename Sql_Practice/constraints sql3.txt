@@ -1,0 +1,161 @@
+
+interview
+
+null-no value
+not null-must hv value
+zero-it is 0 numeric value
+
+_____________________________________
+
+
+constraints        : 
+set a condition ,you can implementy on columns to avoid invaild entities
+
+1. NOT NULL Constraint
+
+Definition:
+Ensures that a column cannot have NULL values (it must always contain some data).
+
+Example:
+
+CREATE TABLE students (
+    id INT NOT NULL,
+    name VARCHAR(50) NOT NULL
+);
+
+__
+✅ Here, both id and name must have a value.
+______________________________________________________________
+
+2. UNIQUE Constraint
+
+Definition:
+Ensures that all values in a column are unique (no duplicates).
+
+Example:
+
+CREATE TABLE employees (
+    emp_id INT UNIQUE,
+    email VARCHAR(100) UNIQUE
+);
+
+
+✅ Each emp_id and email must be different for every employee.
+_____________________________________________________________
+
+
+3. PRIMARY KEY Constraint
+
+Definition:
+A unique identifier for each row in a table.
+
+It is both NOT NULL + UNIQUE.
+
+Each table can have only one primary key.
+
+Example:
+
+CREATE TABLE department (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50)
+);
+
+_____________________________________________________________
+
+4. CHECK Constraint
+
+Definition:
+Used to limit the range of values that can be placed in a column.
+
+Example:
+
+CREATE TABLE products (
+    pid INT PRIMARY KEY,
+    price DECIMAL(7,2) CHECK (price > 0)
+);
+
+--_____________________________________________________________
+
+5. DEFAULT Constraint
++       
+Definition:(whenever columns are not mandarory)
+Sets a default value for a column if no value is provided during insertion.
+
+Example:
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    status VARCHAR(20) DEFAULT 'Pending'
+);
+
+
+___________________________________________________
+
+6. FOREIGN KEY Constraint
+
+Definition:
+Used to link two tables.
+It ensures that the value in one table must exist in another (maintains referential integrity).
+
+Example:
+
+CREATE TABLE customers (
+    cust_id INT PRIMARY KEY,
+    cust_name VARCHAR(50)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    cust_id INT,
+    FOREIGN KEY (cust_id) REFERENCES customers(cust_id)
+);
+
+
+___________________________________________________
+
+7. ON DELETE CASCADE
+
+Definition:
+When a record in the parent table is deleted,
+the related records in the child table are also deleted automatically.
+
+Example:
+
+CREATE TABLE customers (
+    cust_id INT PRIMARY KEY,
+    cust_name VARCHAR(50)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    cust_id INT,
+    FOREIGN KEY (cust_id) REFERENCES customers(cust_id)
+    ON DELETE CASCADE
+);
+
+
+✅ If a customer is deleted from customers, all their orders in orders will also be deleted automatically.
+
+
+___________________________________________________
+
+8. ON UPDATE CASCADE
+
+Definition:
+When a primary key value in the parent table is updated,
+the foreign key value in the child table is automatically updated too.
+
+Example:
+
+CREATE TABLE customers (
+    cust_id INT PRIMARY KEY,
+    cust_name VARCHAR(50)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    cust_id INT,
+    FOREIGN KEY (cust_id) REFERENCES customers(cust_id)
+    ON UPDATE CASCADE
+);
+

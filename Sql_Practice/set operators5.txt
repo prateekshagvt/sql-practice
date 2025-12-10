@@ -1,0 +1,130 @@
+---------------------
+set operators:(u hv multiple results u want to combine them n make one)
+
+-v shud hv same column
+
+**************************88
+Both tables must have the same number of columns and data types.
+
+
+*******************************
+1.union -combine 2 tables
+-order,only ascending,no duplicate
+
+ex:
+
+SELECT a FROM table1
+UNION
+SELECT b FROM table2;
+
+
+*********************************
+
+2.union all -combine 2 tables
+-no order,no duplicate 
+
+
+ex:
+
+SELECT a FROM table1
+UNION ALL
+SELECT b FROM table2;
+
+
+*****************************************
+
+
+1.which is faster?
+
+union all  (interview) -faster (bec less operations)
+
+union-many operations are performed so it takes time
+
+
+2.
+union,internset ,minus ---always in order (asc ) no duplicates
+
+
+3.only union all -no order ,no dulpicates
+
+***************************************
+
+3.interset -
+order,Only shows matching values.
+
+SELECT a FROM table1
+intersect
+SELECT b FROM table2;
+
+
+*****************************************
+4.minus (oracle)
+4.except (mysql)
+
+order
+
+Returns rows from the first table that do not exist in the second table.
+
+Duplicates removed automatically.
+
+
+ex:
+
+SELECT a FROM table1
+except
+SELECT b FROM table2;
+
+
+*********************************************
+interview
+
+one emp table 
+1.apply where condition deptno =20
+select * from emp where deptno =20;
+
+2.apply where condition deptno =40
+select * from emp where deptno =30;
+
+3.apply set operators 
+
+select * from emp where deptno =20
+union
+select * from emp where deptno =30;
+
+
+ex:
+
+select * from emp where ename like '%s'
+union 
+select * from emp where ename like 's%';
+
+
+
+___________________________________________
+distinct keyword /unique keyword :
+
+
+1.Used to get unique values from a column.
+
+2.Removes duplicates automatically.
+
+
+How many distinct salaries are there in emp table?  (interview que)
+
+-- 1. See unique salary values
+
+SELECT DISTINCT sal 
+FROM emp;
+
+-- 2. Count unique salary values
+
+SELECT COUNT(DISTINCT sal) 
+FROM emp;
+_________________________________________________________
+
+ex:
+ select distinct a
+    -> from a;
+	
+select count(distinct a)
+    -> from a;

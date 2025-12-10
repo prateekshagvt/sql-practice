@@ -1,0 +1,313 @@
+ ***********************steps:
+ 
+ 
+ create table table name
+ 
+ 1.show databases;
+ 2. use s1;
+ 
+Database changed
+
+3.show tables
+4.desc s1
+ 
+ 
+ \c
+ exit
+ _____________________________________
+ 
+ **********************data types:
+
+
+| Data Type            | ( ) Needed? | Example               |
+| -------------------- | ----------- | --------------------- |
+| INT, TINYINT, BIGINT | ❌ No        | `id INT`              |
+| DECIMAL, NUMERIC     | ✅ Yes       | `salary DECIMAL(8,2)` |
+| CHAR, VARCHAR        | ✅ Yes       | `name VARCHAR(50)`    |
+| DATE, TIME, BOOLEAN  | ❌ No        | `dob DATE`            |
+
+age: tinyint
+sal:decimal
+name,add,mail :varchar
+char:ph no
+boolean:true,false
+_______________________________________________________________
+
+************************ 5 types:
+
+1.
+Create Tables (DDL – Data Definition Language)
+
+1.add new column 
+
+alter table student
+add saddr varchar(300);
+
+
+***************ALTER TABLE COLUMN NAME
+			   DROP  
+
+2.how to remove column 
+
+alter table dep
+drop column saddr;
+
+
+********************* ALTER TABLE NAME 
+					MODIFY 
+					
+3.how to modify datatype
+
+alter table dep
+modify dep_name varchar(40);
+
+
+ex:
+alter table dep
+modify dep_id int;
+
+
+
+************************** RENAME TABLE 
+
+
+4.rename table name (unique)
+
+rename table dep to dept;
+
+
+
+**************
+
+5.rename column  (error) ->  so use alter
+
+alter table dept
+rename column dep_id to dep_ids;
+
+
+********************************DROP TABLE NAME
+
+6.drop the table
+
+drop table dept;
+
+- u can drop database (cabinet) 
+drop database singh
+
+
+
+
+
+| Action                | Keyword                       | Command                                                   | Shortcut to Remember  |
+| :-------------------- | :---------------------------- | :-------------------------------------------------------- | :-------------------- |
+| **Add new column**    | `ALTER TABLE`                 | `ALTER TABLE student ADD saddr VARCHAR(300);`             | **A → Add**           |
+| **Modify datatype**   | `ALTER TABLE`                 | `ALTER TABLE dep MODIFY dep_name VARCHAR(40);`            | **M → Modify**        |
+| **Rename table**      | `RENAME TABLE`                | `RENAME TABLE dep TO dept;`                               | **R → Rename Table**  |
+| **Rename column**     | `ALTER TABLE`                 | `ALTER TABLE dept RENAME COLUMN dep_id TO dep_ids;`       | **R → Rename Column** |
+| **Drop column/table** | `ALTER TABLE` or `DROP TABLE` | `ALTER TABLE dep DROP COLUMN saddr;` / `DROP TABLE dept;` | **D → Drop**          |
+| **Drop database**     | `DROP DATABASE`               | `DROP DATABASE singh;`                                    | **D → Drop Database** |
+
+
+
+
+
+_______________________________________________________________
+
+
+***************************DML
+
+ow to add database
+
+1.DML 
+
+insert :
+
+insert into students
+values(1,'A',2,20,12);
+
+insert into students
+values(2,'B',2,20,12);
+
+insert into students
+values(3,'C',2,20,12);
+
+insert into students
+values(4,'D',2,20,12);
+
+insert into students
+values(5,'E',2,20,12);
+
+-another way
+
+---------------------
+
+insert into students(sid,sname,smarks,sage)
+values(6,'G',4,5)
+
+-u know only 2 values
+insert into students(sid,sname)
+values(6,'G')
+
+-remaining null wl go 
+
+-see the database
+select* from students;
+
+
+
+
+
+----------------
+update table emp
+set
+name='xyz'
+
+note:foe all the columnx name xyz wl be applied (not particular for one column)
+
+_____________________________________  
+apply condition
+
+UPDATE a1
+SET a_sal = 50000
+WHERE a_name = 'sonu';
+
+
+❗ Important
+
+Always use WHERE condition, otherwise it will update ALL rows.
+----------------------
+delete:
+
+
+
+delete from emp;
+
+
+DELETE FROM a1
+WHERE a_name = 'cfds';
+
+
+
+DELETE FROM a1
+WHERE a_age IS NULL
+  AND a_address IS NULL
+  AND a_mail IS NULL
+  AND a_phno IS NULL
+  AND a_sal IS NULL;
+
+
+
+
+
+
+_____________________________________
+
+
+🔹 What is Auto Commit?
+
+Think of Auto Commit as saving a document automatically:
+
+Auto Commit ON → Every change you make is saved immediately.
+
+Auto Commit OFF → You must save manually, otherwise changes are not saved.
+
+
+🔹 In MySQL Terms
+
+AUTO COMMIT applies to DML (INSERT, UPDATE, DELETE) only.
+
+By default, AUTO COMMIT = ON → every DML query is saved automatically.
+
+If you set autocommit = 0, then you need to use:
+
+COMMIT → to save changes
+
+ROLLBACK → to undo changes
+
+
+✔ Only DML can be rolled back
+❌ DDL, DCL, DQL CANNOT be rolled back
+
+
+--once excuectued changes r permanet in dataabase : dml
+
+
+------------------------------------------
+dql- retrieve
+
+
+______________________________
+dcl- grant :give permission
+revoke :remove permission
+
+______________________________
+tcl
+
+ex:
+1.commit 
+2.delete from 
+3.rollback 
+
+
+
+
+
+-------------------------------------
+********************task 
+
+
+
+create order table which has 4 columns 
+like 
+order_id
+item_id
+order_status
+order_date_created
+order_date_completed
+
+
+
+1.Create the order table
+CREATE TABLE orders (
+    order_id INT,
+    item_id INT,
+    order_status VARCHAR(50),
+    order_date_created DATE,
+    order_date_completed DATE
+);
+
+-----------------------------------------------------------------------
+2.rename
+RENAME TABLE orders TO order_head;
+
+-use with alter 
+
+
+------------------------------------------------------------------
+
+3.Rename column order_id to orderid
+ALTER TABLE order_head RENAME COLUMN order_id TO orderid;
+
+---------------------------------------------------------------------------
+
+4.insert
+INSERT INTO order_head (item_id, order_status, order_date_created, order_date_completed)
+VALUES
+(101, 'Pending', '2025-10-01', NULL),
+(102, 'Shipped', '2025-10-02', '2025-10-04'),
+(103, 'Completed', '2025-10-03', '2025-10-05');
+
+SELECT * FROM order_head;
+
+
+-------------------------------------------------------------------------------------
+
+5.Delete all records, then ROLLBACK
+
+set autocommit =0;
+
+ROLLBACK;
+
+note:
+use the commit then rollback 
+withount commit u can not rollback
