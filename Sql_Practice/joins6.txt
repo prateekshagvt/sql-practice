@@ -1,0 +1,283 @@
+
+A JOIN combines rows from two or more tables using a related column between them.
+
+_______________________________________________
+extracting info from multiply tables : joins
+
+condition:
+u shud hv one related column   ->“Common columns are the columns that store the same type of information in both tables —
+they are used in the ON condition to join the tables.”
+
+_______________________________________________
+1.inner 
+2.left
+3.right
+4.cross
+
+_________________________________________________________
+ex:
+
+
+mysql> select * from a;
++-------+
+| accno |
++-------+
+|   100 |
+|    20 |
+|    10 |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from b;
++-------+
+| accno |
++-------+
+|    30 |
+|    50 |
+|    60 |
++-------+
+3 rows in set (0.00 sec)
+
+
+____________________________________________________-
+1.inner (common records)
+
+Returns only rows that have matching values in both tables.
+
+ex:
+ select * from a inner join b
+     on a.accno = b.accno;
+
+note : u shud mention a.ccno ,b.accno ->    bec how it wl get to know bec both columns hv same name
+
+INNER JOIN = Common rows from both tables.
+
+_______________________________________________________--
+
+
+
+🔹 2. LEFT JOIN (LEFT OUTER JOIN)
+
+Definition:
+Returns all rows from the left table and matching rows from the right table.
+If no match, shows NULL.
+
+LEFT JOIN = All from LEFT + matching from RIGHT.
+
+
+ select * from a left join b
+    on a.accno =b.accno;
+
+
+
+_________________________________________________________
+
+3. RIGHT JOIN (RIGHT OUTER JOIN)
+
+Definition:
+Returns all rows from the right table and matching rows from the left table.
+If no match, shows NULL for left table columns.
+
+RIGHT JOIN = All from RIGHT + matching from LEFT.
+
+
+
+ select * from a right join b
+    on a.accno =b.accno;
+
+
+_______________________________________________
+
+4. FULL JOIN (FULL OUTER JOIN) -oracle
+CROSS JOIN 
+
+Definition:
+Returns all rows from both tables,
+shows NULL where there’s no match.
+
+FULL JOIN = All records from both tables.
+
+
+select * from a cross join b
+    on a.accno =b.accno;
+
+
+note:(⚠️ MySQL doesn’t support FULL JOIN directly;
+you can use UNION of LEFT + RIGHT joins.)
+
+
+
+
+
+
+_______________________________________________
+
+CREATE TABLE classes (
+    class_id INT PRIMARY KEY,
+    class_name VARCHAR(50)
+);
+
+CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(50),
+    class_id INT,
+    FOREIGN KEY (class_id) REFERENCES classes(class_id)
+);
+
+CREATE TABLE teachers (
+    teacher_id INT PRIMARY KEY,
+    teacher_name VARCHAR(50),
+    class_id INT,
+    FOREIGN KEY (class_id) REFERENCES classes(class_id)
+);
+
+CREATE TABLE subjects (
+    subject_id INT PRIMARY KEY,
+    subject_name VARCHAR(50)
+);
+
+
+
+
+_______________________________________________
+INSERT INTO classes VALUES
+(1, 'Class A'),
+(2, 'Class B'),
+(3, 'Class C');
+
+INSERT INTO students VALUES
+(1, 'Alice', 1),
+(2, 'Bob', 1),
+(3, 'Charlie', 2);
+
+INSERT INTO teachers VALUES
+(1, 'Mr. John', 1),
+(2, 'Ms. Priya', 2);
+
+INSERT INTO subjects VALUES
+(1, 'Math'),
+(2, 'Science'),
+(3, 'English');
+
+
+_______________________________________________
+1.inner
+
+ select * from teachers inner join students
+     on teacher_id = student_id;
+	 
+2.left
+
+
+ select * from teachers left join students
+     on teacher_id = student_id;
+
+
+3.right
+
+
+ select * from teachers right join students
+     on teacher_id = student_id;
+
+
+4.cross
+
+
+ select * from teachers cross join students
+     on teacher_id = student_id;
+
+
+
+_____________________________________________________________________
+
+
+-------------------------------------------------
+-- 1. Create tables
+-------------------------------------------------
+CREATE TABLE classes (
+    class_id INT PRIMARY KEY,
+    class_name VARCHAR(50)
+);
+
+CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(50),
+    class_id INT,
+    FOREIGN KEY (class_id) REFERENCES classes(class_id)
+);
+
+CREATE TABLE teachers (
+    teacher_id INT PRIMARY KEY,
+    teacher_name VARCHAR(50),
+    class_id INT,
+    FOREIGN KEY (class_id) REFERENCES classes(class_id)
+);
+
+CREATE TABLE subjects (
+    subject_id INT PRIMARY KEY,
+    subject_name VARCHAR(50)
+);
+
+-------------------------------------------------
+-- 2. Insert sample data
+-------------------------------------------------
+INSERT INTO classes VALUES
+(1, 'Class A'),
+(2, 'Class B'),
+(3, 'Class C');
+
+INSERT INTO students VALUES
+(1, 'Alice', 1),
+(2, 'Bob', 1),
+(3, 'Charlie', 2);
+
+INSERT INTO teachers VALUES
+(1, 'Mr. John', 1),
+(2, 'Ms. Priya', 2);
+
+INSERT INTO subjects VALUES
+(1, 'Math'),
+(2, 'Science'),
+(3, 'English');
+
+-------------------------------------------------
+-- 3. JOIN Examples
+-------------------------------------------------
+
+-- 3a. INNER JOIN (only matching rows)
+SELECT s.student_name, t.teacher_name, c.class_name
+FROM students s
+INNER JOIN teachers t
+    ON s.class_id = t.class_id
+INNER JOIN classes c
+    ON s.class_id = c.class_id;
+
+-- 3b. LEFT JOIN (all students + matching teachers)
+SELECT s.student_name, t.teacher_name, c.class_name
+FROM students s
+LEFT JOIN teachers t
+    ON s.class_id = t.class_id
+LEFT JOIN classes c
+    ON s.class_id = c.class_id;
+
+-- 3c. RIGHT JOIN (all teachers + matching students)
+SELECT s.student_name, t.teacher_name, c.class_name
+FROM students s
+RIGHT JOIN teachers t
+    ON s.class_id = t.class_id
+RIGHT JOIN classes c
+    ON t.class_id = c.class_id;
+
+-- 3d. CROSS JOIN (all combinations of students and teachers)
+SELECT s.student_name, t.teacher_name
+FROM students s
+CROSS JOIN teachers t;
+
+-------------------------------------------------
+-- 4. Notes:
+-- INNER JOIN: only rows where class_id matches in both tables
+-- LEFT JOIN: all rows from left table + matching rows from right table
+-- RIGHT JOIN: all rows from right table + matching rows from left table
+-- CROSS JOIN: Cartesian product (all possible combinations)
+-------------------------------------------------
+
