@@ -1,0 +1,72 @@
+views:
+
+A view is a virtual table that displays data from one or more tables.
+It doesn’t store data permanently — it shows data based on a SQL query.
+
+
+CREATE VIEW v1 AS
+    SELECT e_name AS emp
+    FROM emp;
+	
+	types
+	1.simple 
+	2.complex
+	
+	
+	
+	
+	
+in mysql :
+step 0 :
+go to command line 
+
+CREATE USER 'priya'@'localhost' IDENTIFIED BY '123password';
+
+
+
+step 1:
+	
+	mysql> 
+	
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> create user 'sonu'@'localhost' identified by 'sonu';
+Query OK, 0 rows affected (0.05 sec)
+
+
+2 after creating new localhost as prateeksha (here there wl be no database )(this s new one) 
+-> in home -> click on + option
+
+
+3.real database
+use prateeksha;  //this is old one (my real database from this v r providing the aceess to new localhost)
+select * from emp where ename ='pdh';
+grant select on prateeksha.* to prateeksha;
+
+
+4.new  database
+
+use prateeksha;
+select * from emp;   
+delet from emp; // it wl throw error bec from real database v hv given granted a access to only select not delete (this s view)
+
+
+5. simple -one table
+use prateeksha;
+create view v1 as select from ename,sal from emp;
+grand select on prateeksha.v1 to 'prateeksha'@loclhost;
+select max(sal) as max_sal,
+min(sal) as min_sal,
+sum(sal) as sum_sal,
+avg(sal) as avg_sal,
+count(*) as no_emp
+from emp;
+
+6.joins
+
+create view st_class_details as select name,class_name on stundents.class_Id=classes.class_id;

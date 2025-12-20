@@ -1,0 +1,41 @@
+| CTAS        | VIEW         |
+| ----------- | ------------ |
+| Stores data | Stores query |
+| Faster read | Slower       |
+| Uses space  | No space     |
+| Static data | Dynamic data |
+
+
+with data:
+
+CREATE TABLE emp_backup AS
+SELECT * FROM employees;
+
+
+without data:
+
+
+CREATE TABLE emp_empty AS
+SELECT * FROM employees WHERE 1=0;
+
+
+
+_______________-
+cte
+
+
+WITH temp_table AS (
+    SELECT emp_id, emp_name, salary
+    FROM employees
+    WHERE salary > 40000
+)
+SELECT * FROM temp_table;
+
+
+
+SELECT *
+FROM (
+    SELECT emp_id, emp_name, salary
+    FROM employees
+    WHERE salary > 40000
+) x;
